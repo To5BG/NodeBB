@@ -5,20 +5,39 @@ define('forum/login', ['hooks', 'translator', 'jquery-form'], function (hooks, t
 	const Login = {
 		_capsState: false,
 	};
-	// log
+	
 
 	Login.init = function () {
 		const errorEl = $('#login-error-notify');
 		const submitEl = $('#login');
 		const formEl = $('#login-form');
 
+		// set let
+		let count = 0
+		let trigger = false
+
 		submitEl.on('click', async function (e) {
 			e.preventDefault();
+			// log and count:
+			console.log("v1, count: "+count+" trigger: "+trigger)
+			count++;
+
+			// count function
+			if (count>3){
+				trigger = true
+				console.log("count>3")
+				document.getElementById('username').disabled = true;
+				document.getElementById('password').disabled = true;
+				document.getElementById('login').disabled = true;
+			}
+			
 			const username = $('#username').val();
 			const password = $('#password').val();
 			if (!username || !password) {
 				errorEl.find('p').translateText('[[error:invalid-username-or-password]]');
 				errorEl.show();
+				// log
+				console.log("invalid_password, count:" + count);
 			} else {
 				errorEl.hide();
 
