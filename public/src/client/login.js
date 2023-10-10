@@ -5,6 +5,7 @@ define('forum/login', ['hooks', 'translator', 'jquery-form'], function (hooks, t
 	const Login = {
 		_capsState: false,
 	};
+	// log
 
 	Login.init = function () {
 		const errorEl = $('#login-error-notify');
