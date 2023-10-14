@@ -19,8 +19,21 @@ For all but the mandatory challenge, MongoDB is to be setup for all but the firs
 The default configuration of the database and NodeBB may be insecure (see the installation notes). We would like to prevent any remote access to the database that is not mediated by NodeBB software.  
 [TODO]
 ### Unauthorized access
+> Branch: limit-login  
+> Focus: login-limiter **folder**
+
 User may try to bruteforce passwords, possibly using a botnet. We would like to limit failed login attempts without compromising availability.  
+
+This problem has been resolved in two ways that *should preferably be used concurrently*:
+
+- **Rate and connection limiting**
+
+Making use of Nginx's built-in features, one can limit both the request rate and connection establishment to the server on an IP-basis. Furthermore, the application already has a built-in functionality of temporarily locking an account after a number of failed attempts - the team has simply moved some config variables from the meta config to `config.json`.
+
+- **Captcha**
+
 [TODO]
+
 ## Network eavesdropping
 > Branch: ssl-upgrade  
 > Focus: ssl **folder**
