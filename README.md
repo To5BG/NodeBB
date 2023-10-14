@@ -1,8 +1,8 @@
-# KTH DD2391/DD2395 - Cybersecurity Project
+# KTH DD2391/DD2394 - Cybersecurity Project
 
-This is Group 12's solutions addressing the security challenges, proposed by course DD2391/DD2395. The group is supposed to solve three challenges (two selective, one mandatory) that improve the security of the full-stack web application [NodeBB](https://github.com/NodeBB/NodeBB), a NodeJS forum fullstack app generator, that supports Redis, MongoDB, or PostgreSQL.  
+This is Group 12's solutions addressing the security challenges, proposed by course DD2391/DD2394. The group is supposed to solve three challenges (two selective, one mandatory) that improve the security of the full-stack web application [NodeBB](https://github.com/NodeBB/NodeBB), a NodeJS forum fullstack app generator, that supports Redis, MongoDB, or PostgreSQL.  
 
-For all but the mandatory challenge, MongoDB is to be setup for all but the first challenge, where Redis is to be used to not render the challenge trivial.
+For all but the mandatory challenge, MongoDB is to be setup. Redis is to be used for the mandatory one, so as to not render the challenge trivial.
 
 ## Authors
 
@@ -14,7 +14,7 @@ For all but the mandatory challenge, MongoDB is to be setup for all but the firs
 | <img src="https://avatars.githubusercontent.com/u/112628985?v=4" alt="bktbkt1" width="70"/> | Ka Ho Kao | khkao@kth.se |
 
 ## Problems
-*Below are the three problems that the group tries to solve:*
+*Below are the three problems that the group solves:*
 ### Database leakage and corruption (Mandatory)
 The default configuration of the database and NodeBB may be insecure (see the installation notes). We would like to prevent any remote access to the database that is not mediated by NodeBB software.  
 [TODO]
