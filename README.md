@@ -2,7 +2,7 @@
 
 This is Group 12's solutions addressing the security challenges, proposed by course DD2391/DD2394. The group is supposed to solve three challenges (two selective, one mandatory) that improve the security of the full-stack web application [NodeBB](https://github.com/NodeBB/NodeBB), a NodeJS forum fullstack app generator, that supports Redis, MongoDB, or PostgreSQL.  
 
-For all but the mandatory challenge, MongoDB is to be setup. Redis is to be used for the mandatory one, so as to not render the challenge trivial.
+For all but the mandatory challenge, MongoDB is to be setup (the default database used). Redis is to be used for the mandatory one, so as to not render the challenge trivial.
 
 ## Authors
 
@@ -13,11 +13,30 @@ For all but the mandatory challenge, MongoDB is to be setup. Redis is to be used
 | <img src="https://avatars.githubusercontent.com/u/34583592?v=4" alt="xFleur" width="70"/> | Melissa Julsing | julsing@kth.se |
 | <img src="https://avatars.githubusercontent.com/u/112628985?v=4" alt="bktbkt1" width="70"/> | Ka Ho Kao | khkao@kth.se |
 
+## Structure
+
+The repository is structured as follows:
+* The master branch is a direct fork of the origin NodeBB repository, with two changes
+    * README.md (what you are reading right now)
+    * the report, as a `pdf`
+* Each issue is resolved in a separate **branch**
+* Each issue's additional files are stored in a separate **folder**
+* Both are specified as *Branch* and *Focus* respectively, under each problem section
+* The folder for each problem contains:
+    * Example/reference configuration files to be used/analyzed/built upon
+    * A **writeup.md** that contains a thorough extension of the respective report problem entry, including:
+        * Threats
+        * Countermeasures and their justifications
+        * Any needed configuration steps
+        * Difficulties and considerations
+
 ## Problems
 *Below are the three problems that the group solves:*
+
 ### Database leakage and corruption (Mandatory)
 The default configuration of the database and NodeBB may be insecure (see the installation notes). We would like to prevent any remote access to the database that is not mediated by NodeBB software.  
 [TODO]
+
 ### Unauthorized access
 > Branch: limit-login  
 > Focus: login-limiter **folder**
