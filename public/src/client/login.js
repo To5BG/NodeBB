@@ -71,6 +71,8 @@ define('forum/login', ['hooks', 'translator', 'jquery-form'], function (hooks, t
 							message = errInfo.banned_until ?
 								translator.compile('error:user-banned-reason-until', (new Date(errInfo.banned_until).toLocaleString()), errInfo.reason) :
 								'[[error:user-banned-reason, ' + errInfo.reason + ']]';
+						} else if (data.status === 503) {
+							message = 'Too many login requests. Please try again later.';
 						}
 						errorEl.find('p').translateText(message);
 						errorEl.show();
