@@ -9,6 +9,7 @@ const meta = require('../meta');
 const events = require('../events');
 const batch = require('../batch');
 const utils = require('../utils');
+const nconf = require('nconf');
 
 module.exports = function (User) {
 	User.auth = {};
@@ -22,12 +23,14 @@ module.exports = function (User) {
 			throw new Error('[[error:account-locked]]');
 		}
 		const attempts = await db.increment(`loginAttempts:${uid}`);
-		if (attempts <= meta.config.loginAttempts) {
+		const attemptConf = nconf.get('loginLockoutAttempts') ?? 5;
+		if (attempts <= attemptConf) {
 			return await db.pexpire(`loginAttempts:${uid}`, 1000 * 60 * 60);
 		}
 		// Lock out the account
 		await db.set(`lockout:${uid}`, '');
-		const duration = 1000 * 60 * meta.config.lockoutDuration;
+		const durationConf = nconf.get('loginLockoutDuration');
+		const duration = 1000 * 60 * (durationConf ?? 5);
 
 		await db.delete(`loginAttempts:${uid}`);
 		await db.pexpire(`lockout:${uid}`, duration);
