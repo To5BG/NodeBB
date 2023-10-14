@@ -1,4 +1,4 @@
-# Unauthorized access: - Writeup
+# Unauthorized access - Writeup
 
 User may try to bruteforce passwords, possibly using a botnet. We would like to limit failed login attempts without compromising availability.
 
@@ -12,12 +12,11 @@ The default implementation of NodeBB uses does not limit the amount of login req
 
 * The login attempts counter is reset relatively quick, so a slower, non-burst bruteforce is still possible.
 
-Not addressing login attempts and/or rate is clearly a big security issue, since a user can simply try a large amount of passwords, whether with a dictionary, combinator, or pure brute-force attack.
+Not addressing login attempts and/or rate is clearly a big security issue, since a user can simply try a large amount of passwords, whether with a dictionary, combinator, or pure brute-force attack, to gain access to accounts he is not supposed to have access to. Such an attack has the additional complexity that it can congest the network of the server, slowing down all other processes, including ones that are supposed to prevent such an issue! This is why our solution makes use of a third party service whose operation is decoupled from the server's.
 
 ## Chosen countermeasures
 
-The application has a lockdown functionality built-in, which is a good start for addressing this issue. However, we should ensure that there are no work-arounds, specifically the ones described above. We make use of Nginx to ensure the amount of requests is manageable. As an extra security measure, we also introduce a Captcha solution. It is encouraged that both are  
-used in conjuction for maximal security.
+The application has a lockdown functionality built-in, which is a good start for addressing this issue. However, we should ensure that there are no work-arounds, specifically the ones described above. We make use of Nginx to ensure the amount of requests is manageable. As an extra security measure, we also introduce a Captcha solution. It is encouraged that both are used in conjuction for maximal security.
 
 ### Solution 1: Nginx rate and connection limiting
 
@@ -61,4 +60,8 @@ Basically we copy the basic configuration for a reverse-proxy, and then we make 
 
 ## Difficulties and considerations
 
-Configuration is quite straightforward. An important consideration, however, is that the certificates used here were *self-signed*. This is problematic - if a certificate has no authority, or in other words, if it is not signed by trusted third-parties, it is almost not any more secure than not using `HTTPS` at all. This is because a MitM attacker can forge two pairs of certificates of his own, send them to the client and server, and act as an intermediary, allowing him to still decrypt and read all the traffic. For this toy example, however, self-signed signatures were deemed sufficient to show the idea. For a real application, the certificates would need to be signed by a trusted party - one free option is *Certbot*.
+Configuration is quite straightforward for this problem as well. However, there were some difficulties after setting up Nginx that took a bit to account for. For one, Nginx throws a `503` error when its request queue is filled, however, the NodeBB client did not have a way of handling such error codes. The team had to simply adjust the client code slightly, by introducing a new error flow, with an accompanying message.  
+
+One future considerations for developers extending the pool of locations that should be under rate limits - it is preferable if the location list is extended with a regex or an `OR` directive than it is to duplicate the location directive already present. This is due to both brevity and performance reasons.
+
+[INSERT ANY CAPTCHAS CONSIDERATIONS AND DIFFICULTIES LATER]
