@@ -24,13 +24,15 @@ module.exports = function (User) {
 		}
 		const attempts = await db.increment(`loginAttempts:${uid}`);
 		const attemptConf = nconf.get('loginLockoutAttempts') ?? 5;
+		const durationConf = nconf.get('loginLockoutDuration') ?? 5;
+		const duration = 1000 * 60 * durationConf;
+
 		if (attempts <= attemptConf) {
-			return await db.pexpire(`loginAttempts:${uid}`, 1000 * 60 * 60);
+			return await db.pexpire(`loginAttempts:${uid}`, duration);
 		}
 		// Lock out the account
 		await db.set(`lockout:${uid}`, '');
-		const durationConf = nconf.get('loginLockoutDuration');
-		const duration = 1000 * 60 * (durationConf ?? 5);
+
 
 		await db.delete(`loginAttempts:${uid}`);
 		await db.pexpire(`lockout:${uid}`, duration);
