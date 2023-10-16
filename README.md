@@ -34,15 +34,18 @@ The repository is structured as follows:
 *Below are the three problems that the group solves:*
 
 ### Database leakage and corruption (Mandatory)
+> Branch: limit-login  
+> Focus: leakage-db-files *folder*
+
 The default configuration of the database and NodeBB may be insecure (see the installation notes). We would like to prevent any remote access to the database that is not mediated by NodeBB software.  
 
-- *Bind address*
+- **Bind address**
 The team has utilized Redis to solve this problem. Redis provides the ability to specify the network interface or IP address for incoming access connections through the bind_address configuration option. By setting this option to 127.0.0.1 ::1, Redis restricts remote access and only allows local access, enhancing security and isolating Redis from other services or applications on the same server.
 
-- *Authentication on the Redis server*
+- **Authentication on the Redis server**
 The team has used SHA256 and HMAC-SHA256 tp generat strong and reliable passwords, making it difficult for attackers to guess or solve.
 
-- *Firewall for NodeBB*
+- **Firewall for NodeBB**
 By default, NodeBB runs on port 4567. We want to configure our firewall to ensure that only port 4567 is listened to. “pfctl” command line interface is utilized to interact with the packet filter firewall. The team has successfully set a limitation that only allowing matching incoming TCP packets to pass through the firewall.
 
 
