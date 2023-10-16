@@ -34,7 +34,7 @@ The repository is structured as follows:
 *Below are the three problems that the group solves:*
 
 ### Database leakage and corruption (Mandatory)
-> Branch: limit-login  
+> Branch: leakage-db  
 > Focus: leakage-db-files *folder*
 
 The default configuration of the database and NodeBB may be insecure (see the installation notes). We would like to prevent any remote access to the database that is not mediated by NodeBB software.  
