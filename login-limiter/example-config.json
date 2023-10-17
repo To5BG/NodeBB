@@ -1,0 +1,16 @@
+{
+    "url": "http://localhost:4567",
+    "secret": "very-big-secret",
+    "database": "mongo",
+    "mongo": {
+        "host": "127.0.0.1",
+        "port": "27017",
+        "username": "secret-username",
+        "password": "secret-password",
+        "database": "secret-database",
+        "uri": ""
+    },
+    "port": "4567",
+    "loginLockoutAttempts": 10,
+    "loginLockoutDuration": 10
+}

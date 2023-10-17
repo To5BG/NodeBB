@@ -33,7 +33,7 @@ define('forum/login', ['hooks', 'translator', 'jquery-form'], function (hooks, t
 					initializeDelay: 500,
 					selectionResetDelay: 3000,
 					loadingAnimationDelay: 1000,
-					invalidateTime: 1000 * 60 * 2, // 2 minutes, in milliseconds
+					invalidateTime: 1000 * 60, // 1 minute, in milliseconds
 				},
 				messages: {
 					initialization: {
