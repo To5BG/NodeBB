@@ -66,7 +66,7 @@ Making use of Nginx's built-in features, one can limit both the request rate and
 
 - **Captcha**
 
-[TODO]
+We self-host a separate `PHP` server that acts as a captcha service, and also use Nginx to route some endpoints on the NodeBB's domain into the new server. The underlying logic and captcha flavor is [IconCaptcha](https://github.com/fabianwennink/IconCaptcha-PHP), a test of choosing the least recurring icon between several transformed ones. This solution proved to be most realizable for local development, most easily integratable, while also not sacrificing security and performance.
 
 ## Network eavesdropping
 > Branch: ssl-upgrade  
