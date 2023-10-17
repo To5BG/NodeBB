@@ -73,30 +73,29 @@ A simple, ubiquitous service that is being used for reverse-proxying is `Nginx`.
 
     ``` 
     server {
-            listen                   80 http2;
-            server_name       localhost;
-
-            return                 302 https://$server_name$request_uri;
+        listen 80 http2;
+        server_name localhost;
+        return 302 https://$server_name$request_uri;
     }
-    server: {
-        listen                        443 ssl;
-        server_name            localhost;
-        ssl_certificate          <CERTIFICATE>.pem;
-        ssl_certificate_key  <KEY>.pem;
-        ssl_protocols           TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
-        ssl_ciphers              HIGH:!aNULL:!MD5;
+    server {
+        listen 443 ssl;
+        server_name localhost;
+        ssl_certificate <CERTIFICATE>.pem;
+        ssl_certificate_key <KEY>.pem;
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
+        ssl_ciphers HIGH:!aNULL:!MD5;
         location / {
-            proxy_set_header     X-Real-IP $remote_addr;
-            proxy_set_header     X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header     X-Forwarded-Proto $scheme;
-            proxy_set_header     Host $http_host;
-            proxy_set_header     X-NginX-Proxy true;
-            proxy_pass               http://127.0.0.1:4567;
-            proxy_redirect          off;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header Host $http_host;
+            proxy_set_header X-NginX-Proxy true;
+            proxy_pass http://127.0.0.1:4567;
+            proxy_redirect off;
             # Socket.IO Support
-            proxy_http_version  1.1;
-            proxy_set_header     Upgrade $http_upgrade;
-            proxy_set_header     Connection “upgrade”;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection “upgrade”;
         }     
     }
     ```
