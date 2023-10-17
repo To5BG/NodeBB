@@ -1,4 +1,4 @@
-# Database leakage and corruption (Mandatory)
+# Database leakage and corruption (Mandatory) - WriteUp
 
 The default configuration of the database and NodeBB may be insecure. We would like to prevent any remote access to the database that is not mediated by NodeBB software.
 
