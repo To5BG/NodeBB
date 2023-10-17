@@ -1,4 +1,4 @@
-# Database leakage and corruption (Mandatory) - WriteUp
+# Database leakage and corruption (Mandatory) - Writeup
 
 The default configuration of the database and NodeBB may be insecure. We would like to prevent any remote access to the database that is not mediated by NodeBB software.
 
@@ -10,8 +10,10 @@ In addition, by default, the Redis server does not have an authentication set up
 Another threat is that NodeBB itself does not have a built-in firewall. A firewall is a network security device or software that monitors and controls incoming and outgoing network packages based on predetermined security rules. It acts as an agent between two networks. Without having a firewall, the server is vulnerable for example unauthorized access and DDoS attacks.
 
 ## Chosen countermeasures
+
 ### Solution 1: Redis restrictive Configuration
 Considering the risks posed by the default configuration of Redis, this solution primarily focuses on modifying the Redis configuration to improve network security. In this solution, redis.conf file will be modified.
+
 #### Bind address
 In Redis, it is possible to specify the network interface or IP address for incoming access connections. By configuring the bind_address setting, we can control which network interfaces or IP addresses are permitted to connect to our Redis server. This configuration restricts remote access to the network and only allows connections from the local machine. It also helps to isolate Redis from other services or applications running on the same server. By setting bind_address to 127.0.0.1 and ::1, the Redis server will exclusively allow access from the local machine.
 
@@ -40,7 +42,7 @@ When the requirepass or password setting is enabled in Redis, the server will re
 5. Test the configuration by using some redis commands, like "FLUSHALL". If worked, an authentication error```(error)NOAUTH Authentication required``` is displayed if no password is entered
 6. Type ```auth [password]``` to enter password, if the password is corrected, ```OK``` will be displayed and further redis commands can be used
 
-## Solution 2: FireWall
+## Solution 2: Firewall
 By default, NodeBB runs on port 4567. We want to configure our firewall to ensure that only port 4567 is listened to. We configured a software firewall at the location where the server is hosted, to control traffic to and from the NodeBB. Since the NodeBB was running on MacOS we used “pfctl” which is a command-line interface for managing and interacting with the Packet Filter (PF) firewall. 
 Detailed procedures are as followed:
 1. Create the redis.pf file and added the configuration line
