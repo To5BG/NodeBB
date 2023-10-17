@@ -4,12 +4,12 @@ const winston = require('winston');
 const validator = require('validator');
 const util = require('util');
 const _ = require('lodash');
+const nconf = require('nconf');
 const db = require('../database');
 const meta = require('../meta');
 const events = require('../events');
 const batch = require('../batch');
 const utils = require('../utils');
-const nconf = require('nconf');
 
 module.exports = function (User) {
 	User.auth = {};
@@ -23,8 +23,8 @@ module.exports = function (User) {
 			throw new Error('[[error:account-locked]]');
 		}
 		const attempts = await db.increment(`loginAttempts:${uid}`);
-		const attemptConf = nconf.get('loginLockoutAttempts') ?? 5;
-		const durationConf = nconf.get('loginLockoutDuration') ?? 5;
+		const attemptConf = nconf.get('loginLockoutAttempts') || 5;
+		const durationConf = nconf.get('loginLockoutDuration') || 5;
 		const duration = 1000 * 60 * durationConf;
 
 		if (attempts <= attemptConf) {

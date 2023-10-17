@@ -1,3 +1,6 @@
 {
-	"extends": "nodebb"
+	"extends": "nodebb",
+	"rules": {
+		"linebreak-style": 0
+	}
 }
